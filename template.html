@@ -1,0 +1,270 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>SLDS Plays Web Interface</title>
+	<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<style>
+		
+
+		.center {
+			width: 380px;
+			margin: 0 auto;
+		}
+
+		tr {
+			height: 100%;
+			text-decoration: none;
+			background-color: black;
+			color: white;
+			white-space: pre;
+		}
+		
+
+		.table1, .table2 {
+            width: 380px;
+            border: 10px solid black;
+        }
+
+            .table1 td, .table2 td {
+                padding: 0px;
+                border-top: none;
+                line-height: 18px;
+                height: 18px;
+                text-align: center;
+                font-size: 18px;
+                width: 380px;
+            }
+         
+        .table2 {
+			border-left: 40px solid black;
+			border-right: 40px solid black;
+		}     
+		
+        .table2 tr {
+			
+			border-top: 10px solid black;
+		}     
+		
+        .table2 td {
+			
+			font-size: 24px;
+		}     
+
+		.row {
+			padding: 0px;
+			width: 380px;
+			margin: 0 auto;
+		}
+
+		
+
+		.title td {
+			font-size: 24px;
+			line-height: 24px;
+		}
+
+	
+
+		#last {
+			font-size: 20px;
+		}
+
+		#last, #spacer, #d0, #d1, #d2, #d3, #d4, #d5, #d6 {
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>SLDS Plays Twitch</h1>
+		
+		<div class="center">
+			<table class="table1">
+				<tr><td></td></tr>
+				<tr class="title">
+					<td>SLDS Plays</td>
+				</tr>
+				<tr class="title">
+					<td>Twitch</td>
+				</tr>
+				<tr><td></td></tr>
+				<tr>
+					<td id="policy">Anarchy</td>
+				</tr>
+				 <tr>
+					<td id="time">Policy change in: 10m 0s</td>
+				</tr>  
+				
+				<tr><td></td></tr>
+				<tr><td id="last"></td></tr>
+				<tr><td id="spacer"></td></tr>
+				<tr><td id="d0"></td></tr>
+				<tr><td id="d1"></td></tr>
+				<tr><td id="d2"></td></tr>
+				<tr><td id="d3"></td></tr>
+				<tr><td id="d4"></td></tr>
+				<tr><td id="d5"></td></tr>
+				<tr><td id="d6"></td></tr></table>
+			<table class="table2">
+				<tr>
+					<td id="01" style="text-align:left;"></td>
+					<td id="02" style="text-align:right;"></td>
+				</tr>
+				<tr>
+					<td id="11" style="text-align:left;"></td>
+					<td id="12" style="text-align:right;"></td>
+				</tr>
+				<tr>
+					<td id="21" style="text-align:left;"></td>
+					<td id="22" style="text-align:right;"></td>
+				</tr>
+				<tr>
+					<td id="31" style="text-align:left;"></td>
+					<td id="32" style="text-align:right;"></td>
+				</tr>
+				<tr>
+					<td id="41" style="text-align:left;"></td>
+					<td id="42" style="text-align:right;"></td>
+				</tr>
+				<tr>
+					<td id="51" style="text-align:left;"></td>
+					<td id="52" style="text-align:right;"></td>
+				</tr>
+				<tr>
+					<td id="61" style="text-align:left;"></td>
+					<td id="62" style="text-align:right;"></td>
+				</tr>
+				<tr>
+					<td id="71" style="text-align:left;"></td>
+					<td id="72" style="text-align:right;"></td>
+				</tr>
+				<tr>
+					<td id="81" style="text-align:left;"></td>
+					<td id="82" style="text-align:right;"></td>
+				</tr>
+				<tr>
+					<td id="91" style="text-align:left;"></td>
+					<td id="92" style="text-align:right;"></td>
+				</tr>
+				<tr>
+					<td id="101" style="text-align:left;"></td>
+					<td id="102" style="text-align:right;"></td>
+				</tr>
+				<tr>
+					<td id="111" style="text-align:left;"></td>
+					<td id="112" style="text-align:right;"></td>
+				</tr>
+				<tr>
+					<td id="121" style="text-align:left;"></td>
+					<td id="122" style="text-align:right;"></td>
+				</tr>
+				<tr>
+					<td id="131" style="text-align:left;"></td>
+					<td id="132" style="text-align:right;"></td>
+				</tr>
+				<tr>
+					<td id="141" style="text-align:left;"></td>
+					<td id="142" style="text-align:right;"></td>
+				</tr>
+				<tr>
+					<td id="151" style="text-align:left;"></td>
+					<td id="152" style="text-align:right;"></td>
+				</tr>
+				<tr>
+					<td id="161" style="text-align:left;"></td>
+					<td id="162" style="text-align:right;"></td>
+				</tr>
+				<tr>
+					<td id="171" style="text-align:left;"></td>
+					<td id="172" style="text-align:right;"></td>
+				</tr>
+				<tr><td></td><td></td></tr>
+			</table>
+		</div>
+
+		<hr>
+	</div>
+	<script>
+	
+    var ws = new WebSocket('ws://localhost:8888/socket');
+    var cascadasize = 17;
+    var cascada = new Array(17);
+    var blank = new Array();
+    blank.push(" ");
+    blank.push(" ");
+    cascada.fill(blank);   
+    var totalseconds = 600;
+    var anarchy = true;
+  
+    // Timer para cambiar la política
+    setInterval(function(){
+	  if (totalseconds == 0) {
+		 if (anarchy) {
+			anarchy = false;
+			totalseconds = 600;
+			$('#policy').text("Democracy (not working yet)"); 
+		 }
+		 else {
+			anarchy = true;
+			totalseconds = 600;
+			$('#policy').text("Anarchy");  
+		 }   
+	  }	  
+      var minutes = Math.floor(totalseconds / 60);
+      var seconds = Math.floor(totalseconds % 60);
+      var time = minutes + "m " + seconds + "s";
+      $('#time').text("Policy change in: " + time);
+      --totalseconds;
+    }, 1000);
+
+    
+
+    
+    
+    ws.onmessage = function(ev){
+	  	
+      
+
+      var json = JSON.parse(ev.data);
+
+	  
+      if (json.button){
+        shiftArray();
+        var newentry = new Array();
+        newentry.push(json.button.user);
+        if (json.button.button == "left") newentry.push('←');
+        if (json.button.button == "down") newentry.push('↓');
+        if (json.button.button == "up") newentry.push('↑');
+        if (json.button.button == "right") newentry.push('→');
+        else newentry.push(json.button.button);
+        cascada[17] = newentry;
+        console.log(cascada);
+        
+        
+
+		
+        for (var i = 0; i < cascada.length; i++){
+      
+          $('#' + i + '1').text(cascada[i][0]);
+          $('#' + i + '2').text(cascada[i][1]);
+          
+          
+         
+        }
+      }
+      
+    };
+    
+    
+	// Para el efecto cascada
+    function shiftArray(){
+      cascada = cascada.concat(cascada.splice(0,1));
+    };
+
+    
+
+    
+	</script>
+</body>
+</html>
